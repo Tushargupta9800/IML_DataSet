@@ -1,0 +1,102 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct node{
+  int value;
+  struct node*right;
+  struct node*left;
+};
+
+struct node*root=NULL;
+
+void createnode(int a){
+  struct node*temp;
+  temp=(struct node*)malloc(sizeof(struct node));
+  temp->value=a;
+  temp->right=NULL;
+  temp->left=NULL;
+  root=temp;
+}
+
+void makeemptyl(struct node*temp){
+  struct node*tem;
+  tem=(struct node*)malloc(sizeof(struct node));
+  tem->value=-1;
+  tem->right=NULL;
+  tem->left=NULL;
+  temp->left=tem;
+}
+
+void makeemptyr(struct node*temp){
+  struct node*tem;
+  tem=(struct node*)malloc(sizeof(struct node));
+  tem->value=-1;
+  tem->right=NULL;
+  tem->left=NULL;
+  temp->right=tem;
+}
+
+void entervalue(struct node*temp,int val){
+  temp->value=val;
+}
+
+int max(struct node*temp){
+  if(temp==NULL){return 0;}
+  else{
+    int rm,lm;
+    rm=max(temp->right)+1;
+    lm=max(temp->left)+1;
+    return max(rm,lm);
+  }
+}
+
+int dia(struct node*temp){
+  int a,b,c,d;
+  if(temp==NULL){return 0;}
+  a=dia(temp->left);
+  b=dia(temp->right);
+  c=max(temp->right);
+  d=max(temp->left);
+  a=max(a,b);
+  return max(a,c+d+1);
+}
+
+int main(){
+
+  int a;
+  cin>>a;
+  int b;
+  cin>>b;
+
+  createnode(b);
+  while(a--){
+    string s;
+    cin>>s;
+    int c;
+    cin>>c;
+
+    int len=s.size();
+    struct node*temp=root;
+    for(int i=0;i<len;i++){
+      if(s[i]=='L'){
+        if(temp->left==NULL){
+          makeemptyl(temp);
+        }
+        temp=temp->left;
+      }
+      if(s[i]=='R'){
+        if(temp->right==NULL){
+          makeemptyr(temp);
+        }
+        temp=temp->right;
+      }
+    }
+    entervalue(temp,c);
+  }
+
+  int lm;
+
+  lm=dia(root);
+  cout<<lm;
+  return 0;
+}
