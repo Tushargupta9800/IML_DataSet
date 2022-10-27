@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct link{
+  int info;
+  struct link *next,*prev;
+};
+
+struct link *start=NULL;
+
+void enter(){
+struct link*n;
+
+n=(struct link *)malloc(sizeof(struct link));
+
+cin>>n->info;
+n->next=NULL;
+n->prev=NULL;
+if(start==NULL){
+  start=n;
+}
+
+else{
+  start->prev=n;
+  n->next=start;
+  start=n;
+}
+
+}
+
+void deletenode(){
+ struct link*d;
+ d=start;
+ start=start->next;
+ start->prev=NULL;
+ free(d);
+}
+
+int main(){
+int a;
+cin>>a;
+for(int b=0;b<a;b++){
+  enter();
+}
+
+struct link*t;
+t=start;
+while(1){
+  if(t->next==NULL){cout<<t->info; cout<<"\nbas khatam ho gaya link list\n"; break;}
+  else{
+  cout<<t->info;
+  t=t->next;
+}}
+deletenode();
+t=start;
+cout<<"\n\n\n";
+while(1){
+  if(t->next==NULL){cout<<t->info; cout<<"\nbas khatam ho gaya link list\n"; break;}
+  else{
+  cout<<t->info;
+  t=t->next;
+}}
+
+deletenode();
+t=start;
+cout<<"\n\n\n";
+while(1){
+  if(t->next==NULL){cout<<t->info; cout<<"\nbas khatam ho gaya link list\n"; break;}
+  else{
+  cout<<t->info;
+  t=t->next;
+}}
+  return 0;
+}
